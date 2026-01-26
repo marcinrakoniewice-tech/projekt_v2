@@ -1,0 +1,17 @@
+name: projekt_v2
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - pandas
+      - vectorbt
+      - yfinance
+      - streamlit
+      - langfuse
+      - python-dotenv
+      - sqlalchemy
+      - scikit-learn
+      - pycaret

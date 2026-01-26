@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv
+.env
+
+# Data & Notebooks
+data/
+.ipynb_checkpoints/
+Task_4_done.ipynb
+Task_5_done.ipynb
+# IDE
+.vscode/
