@@ -10,33 +10,40 @@ class DataLoader:
             os.makedirs(self.storage_path)
 
     # 2. Główna logika zarządzania danymi (pobieranie lub wczytywanie z cache)
-    def get_data(self, ticker: str, period: str = "20y"):
+    # ZMIANA: Dodano parametr force_update, aby móc wymusić pobranie świeżych danych
+    def get_data(self, ticker: str, period: str = "20y", force_update: bool = False):
         file_path = os.path.join(self.storage_path, f"{ticker}_d1.csv")
         
         # 3. Sprawdzenie czy dane istnieją lokalnie przed pobieraniem
-        if os.path.exists(file_path):
+        # ZMIANA: Sprawdzamy też, czy nie wymuszono aktualizacji
+        if not force_update and os.path.exists(file_path):
             print(f"Wczytywanie {ticker} z dysku...")
             return pd.read_csv(file_path, index_col=0, parse_dates=True)
         
         # 4. Pobieranie danych z zewnętrznego źródła (Yahoo Finance)
-        print(f"Pobieranie {ticker} z sieci...")
+        print(f"Pobieranie {ticker} z sieci (odświeżanie)...")
         df = yf.download(ticker, period=period, interval="1d")
         
         if df.empty:
             return None
             
         # 5. Standaryzacja formatu danych (czyszczenie nagłówków)
-        if isinstance(df.columns, pd.MultiIndex):
-            df.columns = df.columns.get_level_values(0)
+        # ZMIANA: Dodano jawne sprawdzenie 'df is not None', aby uciszyć błędy Pylance
+        if df is not None:
+            if isinstance(df.columns, pd.MultiIndex):
+                df.columns = df.columns.get_level_values(0)
+                
+            # 6. Zapisanie pobranych danych do pliku CSV
+            df.to_csv(file_path)
             
-        # 6. Zapisanie pobranych danych do pliku CSV
-        df.to_csv(file_path)
         return df
 
 # 7. Blok uruchomieniowy (testowy)
 if __name__ == "__main__":
     loader = DataLoader()
-    df_spy = loader.get_data("SPY")
+    
+    # Przykład użycia: wymuszamy pobranie najnowszych danych
+    df_spy = loader.get_data("SPY", force_update=True)
     
     if df_spy is not None:
         # Wyświetlamy kształt danych (ile wierszy i kolumn)
