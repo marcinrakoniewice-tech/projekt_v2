@@ -1,14 +1,23 @@
-Zadaniem programu jest wykonywanie backtestów, dla pomysłów inwestycyjnych opartych o:
-+ wskażniki fundamentalne
-+ ruch ceny
-+ wslażniki techniczne
+# Projekt Inwestycyjny AI: Backtester v2
 
-Obecny stan, to stan początkowy twtworzę szkielet aplikacji:
-+ W repo zdalnym jest umieszony kod ściągający dane dla interwałów dziennych wybranego indeksu, 20 lat wstecz,
-Na gałęzi pobocznej wysłałem kod aplikacji robiącej, prosty test strategii opierającej się o przecięcie średnich.
+Zadaniem programu jest wykonywanie zaawansowanych backtestów dla pomysłów inwestycyjnych opartych o:
+* **Wskaźniki fundamentalne**
+* **Akcję cenową (Price Action)**
+* **Wskaźniki techniczne**
 
-Plany są takie by:
-+ aplikacja robiła znacznie bardziej skomplikowane backtesty dla wybranych spółek i indeksów, w różnych interwałach czasowych z wykorzystaniem wsk. fundamentalnych i technicznych;
-+ wykorzystać langfuse do monitoringu;
-+ wykorzystać streamlit do wprowadzenia warunków strategii i wizualizacji danych z backtestów.
-+ jest kilka pomysłów innych ale pierw trzeba ogarnąć to co wyżej.
+## Obecny stan projektu
+Projekt jest w fazie budowy szkieletu aplikacji:
+* **Moduł danych:** Pobieranie danych historycznych (interwały dzienne) dla wybranego indeksu (np. SPY) do 20 lat wstecz.
+* **Silnik testowy:** Implementacja masowych backtestów (Grid Search) z wykorzystaniem biblioteki `vectorbt`.
+* **Optymalizacja:** Mechanizm szukania najlepszych parametrów strategii (np. przecięcia średnich SMA).
+
+## Wyniki Strategii SMA (15, 170)
+Poniżej przedstawiam wyniki optymalizacji dla indeksu SPY (dane 2006-2026). Strategia ta cechuje się znacznie niższym obsunięciem kapitału (Drawdown ~21%) niż sam indeks, przy solidnym wzroście kapitału.
+
+![Wykres Wyników](reports/figures/best_strategy.png)
+
+## Plany rozwoju
+* [ ] Rozszerzenie backtestów o dane fundamentalne i interwały intraday.
+* [ ] Integracja z **Langfuse** do monitoringu i logowania pracy agentów AI.
+* [ ] Budowa interfejsu w **Streamlit** do interaktywnej wizualizacji i wprowadzania reguł strategii.
+* [ ] Implementacja bardziej złożonych systemów (RSI, Bollinger Bands, analiza sentymentu).

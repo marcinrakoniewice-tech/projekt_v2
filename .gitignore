@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 .venv
 .env
+*.html
 
 # Data & Notebooks
 data/
@@ -14,5 +15,6 @@ Task_6_done.ipynb
 zadanie_domowe.ipynb
 Task_7_done.ipynb
 Task_8_done.ipynb
+Road_maps.ipynb
 # IDE
 .vscode/
